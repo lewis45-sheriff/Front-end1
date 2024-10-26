@@ -1,13 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 function Navbar() {
   const [menuActive, setMenuActive] = useState(false);
+  const [isHidden, setIsHidden] = useState(false); // State to manage navbar visibility
+  let lastScrollTop = 0; // Variable to hold the last scroll position
 
   const toggleMenu = () => {
     setMenuActive(!menuActive);
   };
+
+  const handleScroll = () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop; // Get the current scroll position
+
+    if (scrollTop > lastScrollTop) {
+      setIsHidden(true); // Hide navbar when scrolling down
+    } else {
+      setIsHidden(false); // Show navbar when scrolling up
+    }
+    lastScrollTop = scrollTop; // Update the last scroll position
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll); // Add scroll event listener
+    return () => {
+      window.removeEventListener('scroll', handleScroll); // Cleanup on component unmount
+    };
+  }, []); // Empty dependency array means this effect runs once on mount and cleanup on unmount
 
   return (
     <div>
@@ -17,10 +37,10 @@ function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      <div id="menu" className={`text-left ${menuActive ? 'active' : ''}`}>
+      <div id="menu" className={`text-left ${menuActive ? 'active' : ''}`} style={{ top: isHidden ? '-60px' : '0' }}>
         {/* Logo */}
         <div className="logo">
-          <img src="my-wine-app\src\assets\atlas liquor logo.svg" alt="Logo" />
+          <img src="my-wine-app/src/assets/atlas liquor logo.svg" alt="Logo" />
         </div>
         {/* Menu items */}
         <ul className="offcanvas_main_menu_horizontal">

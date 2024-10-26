@@ -53,15 +53,18 @@ function Wines() {
     console.log(`Added ${wine.name} to cart`);
   };
 
+  // Filter to show only best sellers
+  const bestSellers = wines.filter(wine => wine.isBestSeller);
+
   return (
     <div className="wine-list">
       {loading && <p>Loading wines...</p>}
       {error && <p>Error fetching wines: {error}</p>}
-      {!loading && !error && wines.length > 0 ? (
-        wines.map((wine) => (
+      {!loading && !error && bestSellers.length > 0 ? (
+        bestSellers.map((wine) => (
           <div key={wine.id} className="wine-item">
             <h3>{wine.name}</h3>
-            <img src={wine.avatar} alt={wine.name} className="wine-image" />
+            <img src={wine.image} alt={wine.name} className="wine-image" />
             
             <p><strong>Price:</strong> {wine.price}</p>
             {wine.isNew && <span className="badge new">New!</span>}
@@ -78,7 +81,7 @@ function Wines() {
           </div>
         ))
       ) : (
-        !loading && <p>No wines available.</p>
+        !loading && <p>No best-selling wines available.</p>
       )}
     </div>
   );

@@ -1,162 +1,178 @@
 /* Navbar.css */
 
 /* Global styles */
-body{
+body {
   font-family: Georgia, serif;
+}
+
+#menu {
+  background-color: transparent;
+  color: rgb(169, 43, 43);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+  transition: top 0.3s; /* Smooth transition for hiding/showing */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#menu li {
+  margin-top: 8px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.logo img {
+  width: 80px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.login-link {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  transition: color 0.3s;
+  margin-right: 20px;
+}
+
+/* Style for the login link on hover */
+.login-link:hover {
+  color: #a66e6e;
+}
+
+/* Toggle button styles */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 10px;
+  margin-right: 20px;
+}
+
+.menu-toggle.active .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.bar {
+  width: 30px;
+  height: 4px;
+  background-color: white;
+  margin: 4px 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Mobile menu styles */
+.offcanvas_main_menu_horizontal {
+  list-style: none;
+  display: flex;
+  margin-right: 20px;
+}
+
+.offcanvas_main_menu_horizontal li {
+  margin: 0 10px;
+}
+
+.offcanvas_main_menu_horizontal a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.offcanvas_main_menu_horizontal a:hover {
+  color: #a66e6e;
+}
+
+/* Submenu styles */
+.sub-menu {
+  display: none;
+  background-color: #333;
+  position: relative;
+  top: 40px;
+  left: 0;
+  width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item-has-children:hover .sub-menu {
+  display: block;
+}
+
+.sub-menu li {
+  padding: 10px;
+  border-bottom: none;
+}
+
+/* Special styling for "Others" submenu */
+.sub-menu li a b {
+  color: #F8E5E5;
+}
+
+/* Footer styles */
+.offcanvas_footer_horizontal {
+  margin-right: 20px;
+}
+
+.offcanvas_footer_horizontal ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  margin-left: 20px;
+}
+
+.offcanvas_footer_horizontal li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.offcanvas_footer_horizontal a {
+  text-decoration: none;
+  color: white;
+  font-size: 24px;
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
   }
-  
-  #menu {
-    background-color: transparent;
-    color: rgb(169, 43, 43);
-    position: fixed;
-    top: 0;
+
+  #menu li {
+    margin-right: 10px; /* Adjust margin for smaller screens */
+  }
+
+  .offcanvas_main_menu_horizontal {
+    display: none; /* Hide the horizontal menu on mobile by default */
+    flex-direction: column; /* Stack items vertically */
+    position: absolute; /* Position it absolutely for mobile */
+    top: 60px; /* Below the navbar */
     left: 0;
     width: 100%;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 100;
+    background-color: #333; /* Background color for mobile menu */
+    z-index: 99; /* Below the main menu */
   }
-  
-  .logo {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+
+  .offcanvas_main_menu_horizontal.active {
+    display: flex; /* Show on active state */
   }
-  
-  #menu li {
-    margin-top: 8px;
-    margin-right: 20px; /* Move the list items to the far right */
-    margin-bottom: 10px;
-    
-  
-  }
-  
-  .logo img {
-    width: 80px;
-    height: auto;
-    margin-right: 10px;
-  }
-  
-  .login-link {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-    transition: color 0.3s;
-    margin-right: 20px;
-  }
-  
-  /* Style for the login link on hover */
-  .login-link:hover {
-    color: #a66e6e;
-  }
-  
-  /* Toggle button styles */
-  .menu-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    padding: 10px;
-    margin-right: 20px;
-  }
-  
-  .menu-toggle.active .bar:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-  
-  .menu-toggle.active .bar:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .menu-toggle.active .bar:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-  
-  .bar {
-    width: 30px;
-    height: 4px;
-    background-color: white;
-    margin: 4px 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-  
-  /* Mobile menu styles */
-  .offcanvas_main_menu_horizontal {
-    list-style: none;
-    display: flex;
-    margin-right: 20px;
-  }
-  
-  .offcanvas_main_menu_horizontal li {
-    margin: 0 10px;
-  }
-  
-  .offcanvas_main_menu_horizontal a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-    transition: color 0.3s;
-  }
-  
-  .offcanvas_main_menu_horizontal a:hover {
-    color: #a66e6e;
-  }
-  
-  /* Submenu styles */
-  .sub-menu {
-    display: none;
-    background-color: #333;
-    position: relative;
-    top: 40px;
-    left: 0;
-    width: 200px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .menu-item-has-children:hover .sub-menu {
-    display: block;
-  }
-  
-  .sub-menu li {
-    padding: 10px;
-    border-bottom: none;
-  }
-  
-  /* Special styling for "Others" submenu */
-  .sub-menu li a b {
-    color: #F8E5E5;
-  }
-  
-  /* Footer styles */
-  .offcanvas_footer_horizontal {
-    margin-right: 20px;
-  }
-  
-  .offcanvas_footer_horizontal ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    margin-left: 20px;
-  }
-  
-  .offcanvas_footer_horizontal li {
-    display: inline;
-    margin: 0 10px;
-  }
-  
-  .offcanvas_footer_horizontal a {
-    text-decoration: none;
-    color: white;
-    font-size: 24px;
-  }
-  
-  /* Media query for responsiveness */
-  @media screen and (max-width: 768px) {
-    .menu-toggle {
-        display: flex;
-    }
-  
-    /* ... */
-  }
-  
+}
+   

@@ -9,6 +9,8 @@ import Login from './components/Login';
 import { AuthProvider } from './components/AuthContext'; // Import the AuthProvider
 import Reviews from './components/Reviews';
 import WhiskeyProducts from './components/Wines';
+import { Wine } from 'lucide-react';
+import Wines from './components/Bestseller';
 
 function App() {
   return (
@@ -17,12 +19,13 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/wines" element={<WhiskeyProducts />} />
+          <Route path="/wines" element={<WhiskeyProducts/>} />
           <Route path="/navbar" element={<Navbar />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/login" element={<Login />} />
+          
         </Routes>
         <Footer />
       </AuthProvider> {/* Close AuthProvider */}

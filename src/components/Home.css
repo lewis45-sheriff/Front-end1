@@ -1,23 +1,25 @@
 /* General Styles */
-
 .home-page {
   display: flex;
-  font-family: Georgia, serif;
+  font-family: 'Georgia', serif;
+  background-color: #f8f8f8; /* Light background for better contrast */
+  color: #333; /* Default text color */
 }
 
 /* Sidebar Styles */
 .sidebar {
   width: 250px;
-  background-color: #0a0a0a;
+  background-color: #1a1a1a; /* Darker sidebar for contrast */
   padding: 20px;
   border-right: 1px solid #ddd;
   height: 100vh;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
   position: relative;
+  transition: transform 0.3s ease;
 }
 
 .browse-btn {
-  background-color: #333;
+  background-color: #444; /* Darker button color */
   color: white;
   padding: 12px;
   border: none;
@@ -27,11 +29,12 @@
   margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s; /* Added transform transition */
 }
 
 .browse-btn:hover {
-  background-color: #555;
+  background-color: #555; /* Lighter on hover */
+  transform: scale(1.05); /* Slight scale effect */
 }
 
 /* Category Table Styles */
@@ -46,12 +49,12 @@
   border-bottom: 1px solid #0c0c0c;
   cursor: pointer;
   text-align: left;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s; /* Smooth color transition */
 }
 
 .category-table td:hover {
-  background-color: #ddd;
-  color: #333;
+  background-color: #e0e0e0; /* Slightly lighter on hover */
+  color: #000; /* Darker text on hover */
 }
 
 /* Main Content Styles */
@@ -65,6 +68,7 @@
   color: #a31616;
   margin-bottom: 20px;
   text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
 }
 
 /* Promo Section */
@@ -78,7 +82,12 @@
 .promo-image {
   width: 300px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Deeper shadow */
+  transition: transform 0.3s; /* Transition for image effect */
+}
+
+.promo-image:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
 .promo-text p {
@@ -110,6 +119,11 @@
   flex: 1;
   max-width: 220px;
   text-align: center;
+  transition: transform 0.3s; /* Transition for item effect */
+}
+
+.category-item:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
 }
 
 .category-item img {
@@ -158,6 +172,7 @@
     height: auto;
     border-right: none;
     border-bottom: 1px solid #ddd;
+    transform: translateX(-100%); /* Hide offscreen */
   }
 
   .main-content {
@@ -180,6 +195,18 @@
 
   .category-item {
     max-width: 150px;
+  }
+
+  .toggle-button {
+    display: block; /* Show toggle button on smaller screens */
+  }
+
+  .sidebar.open {
+    transform: translateX(0); /* Show sidebar */
+  }
+
+  .sidebar.closed {
+    display: none; /* Optional, can help with layout */
   }
 }
 
@@ -207,4 +234,53 @@
   .category-item p {
     font-size: 0.8rem;
   }
+
+  /* Product Grid for Small Screens */
+  .product-grid h2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+  }
+}
+
+/* Dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Toggle button */
+.dropdown-toggle {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  display: none; /* Hidden by default */
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Menu items */
+.dropdown-menu div {
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+/* Menu item hover effect */
+.dropdown-menu div:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-menu {
+  display: block;
 }

@@ -15,8 +15,8 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = formData.isRegistering
-      ? 'http://localhost:8000/Api/register/' // Registration API endpoint
-      : 'http://localhost:8000/Api/login/';   // Login API endpoint
+      ? 'http://localhost:8000/api/register/' // Registration API endpoint
+      : 'http://localhost:8000/api/login/';   // Login API endpoint
 
     try {
       const response = await fetch(url, {
