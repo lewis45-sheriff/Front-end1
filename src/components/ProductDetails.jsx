@@ -1,7 +1,9 @@
 import React from 'react';
 import { MinusIcon, PlusIcon, ShoppingCart } from 'lucide-react';
+import { useParams } from 'react-router-dom'; // Import useParams
 
 const ProductDisplay = () => {
+  const { id } = useParams(); // Get the product ID from the URL
   const [product, setProduct] = React.useState(null);
   const [quantity, setQuantity] = React.useState(1);
   const [loading, setLoading] = React.useState(true);
@@ -10,7 +12,8 @@ const ProductDisplay = () => {
   React.useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/product/');
+        // Updated endpoint
+        const response = await fetch(`http://localhost:8000/api/product_info/1/`);
         if (!response.ok) {
           throw new Error('Failed to fetch product data');
         }
@@ -24,7 +27,7 @@ const ProductDisplay = () => {
     };
 
     fetchProduct();
-  }, []);
+  }, [id]); // Add id to the dependency array
 
   const incrementQuantity = () => setQuantity(prev => prev + 1);
   const decrementQuantity = () => {
@@ -56,7 +59,6 @@ const ProductDisplay = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Product Image */}
         <div className="md:w-1/2">
           <img 
             src={product.image || "/api/placeholder/400/600"}
@@ -65,9 +67,7 @@ const ProductDisplay = () => {
           />
         </div>
 
-        {/* Product Details */}
         <div className="md:w-1/2 space-y-6">
-          {/* Breadcrumb */}
           <nav className="text-sm text-gray-500">
             <ol className="flex items-center gap-2">
               <li>HOME</li>
@@ -78,17 +78,14 @@ const ProductDisplay = () => {
             </ol>
           </nav>
 
-          {/* Product Title */}
           <h1 className="text-3xl font-bold text-gray-900">
             {product.name}
           </h1>
 
-          {/* Price */}
           <div className="text-2xl font-bold text-amber-500">
             KShs {product.price}
           </div>
 
-          {/* Product Details */}
           <div className="space-y-4">
             <div className="grid gap-3">
               <div className="flex gap-2">
@@ -113,7 +110,6 @@ const ProductDisplay = () => {
               </div>
             </div>
 
-            {/* Stock Status */}
             <div className="text-green-600 flex items-center gap-2">
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
@@ -121,7 +117,6 @@ const ProductDisplay = () => {
               <span>{product.in_stock ? 'In stock' : 'Out of stock'}</span>
             </div>
 
-            {/* Quantity and Add to Cart */}
             <div className="flex items-center gap-4">
               <div className="flex items-center border rounded-md">
                 <button 
@@ -137,6 +132,7 @@ const ProductDisplay = () => {
                   onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                   className="w-16 text-center border-x"
                   disabled={!product.in_stock}
+                  min="1"
                 />
                 <button 
                   onClick={incrementQuantity}

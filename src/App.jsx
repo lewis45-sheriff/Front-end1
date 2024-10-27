@@ -11,6 +11,7 @@ import Reviews from './components/Reviews';
 import WhiskeyProducts from './components/Wines';
 import { Wine } from 'lucide-react';
 import Wines from './components/Bestseller';
+import ProductDisplay from './components/ProductDetails';
 
 function App() {
   return (
@@ -19,12 +20,13 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/wines" element={<WhiskeyProducts/>} />
+          <Route path="/wines" element={<Wines/>} />
           <Route path="/navbar" element={<Navbar />} />
           <Route path="/footer" element={<Footer />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/login" element={<Login />} />
+          <Route path="product_view" element={< ProductDisplay/>} />
           
         </Routes>
         <Footer />

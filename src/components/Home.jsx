@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
-import { Menu, X } from 'lucide-react';
+import Wines from './Bestseller';
+import ProductDisplay from './ProductDetails';
 
 function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [cart, setCart] = useState([]); // New state for cart
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
@@ -43,10 +45,24 @@ function Home() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+  const addToCart = (product) => {
+    setCart((prevCart) => {
+      // Check if the product already exists in the cart
+      const existingProduct = prevCart.find((item) => item.id === product.id);
+      if (existingProduct) {
+        // Increase quantity if it exists
+        return prevCart.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      } else {
+        // Add new product to cart with quantity 1
+        return [...prevCart, { ...product, quantity: 1 }];
+      }
+    });
+  };
 
-  const bestSellers = products.filter(product => product.isBestSeller);
-  const newProducts = products.filter(product => product.isNew);
-
+ 
+  
   return (
     <div className="home-page">
       <div className="relative">
@@ -117,81 +133,8 @@ function Home() {
       </div>
     </section>
 
-    {/* Loading State */}
-    {loading ? (
-      <div className="loading">Loading products...</div>
-    ) : (
-      <div className="product-grid">
-        {/* Best Sellers Section */}
-        <h2 className='heading1'>Best Sellers</h2>
-        <div className="grid">
-          {bestSellers.length > 0 ? (
-            bestSellers.map((product, index) => (
-              <div key={index} className="product-card">
-                {product.isNew && <div className="new-badge">NEW</div>}
-                <img
-                  src={product.imageUrl || '/api/placeholder/300/400'}
-                  alt={product.name}
-                  className="product-image"
-                />
-                <div className="product-info">
-                  <h3 className="product-name">{product.name}</h3>
-                  <p className="product-category">{product.category}</p>
-                  <p className="product-price">KShs {product.price}</p>
-                  <button className="add-to-cart-button">ADD TO CART</button>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No bestsellers available.</p>
-          )}
-        </div>
-
-        {/* New Products Section */}
-        <h2 className='heading1'> New</h2>
-        <div className="grid">
-          {newProducts.length > 0 ? (
-            newProducts.map((product, index) => (
-              <div key={index} className="product-card">
-                <img
-                  src={product.imageUrl || '/api/placeholder/300/400'}
-                  alt={product.name}
-                  className="product-image"
-                />
-                <div className="product-info">
-                  <h3 className="product-name">{product.name}</h3>
-                  <p className="product-category">{product.category}</p>
-                  <p className="product-price">KShs {product.price}</p>
-                  <button className="add-to-cart-button">ADD TO CART</button>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No new products available.</p>
-          )}
-        </div>
-
-        {/* All Products Section */}
-        <h2 className='heading1'>All Products</h2>
-        <div className="grid">
-          {products.map((product, index) => (
-            <div key={index} className="product-card">
-              <img
-                src={product.imageUrl || '/api/placeholder/300/400'}
-                alt={product.name}
-                className="product-image"
-              />
-              <div className="product-info">
-                <h3 className="product-name">{product.name}</h3>
-                <p className="product-category">{product.category}</p>
-                <p className="product-price">KShs {product.price}</p>
-                <button className="add-to-cart-button">ADD TO CART</button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    )}
+   <Wines/>
+ 
   </div>
     </div >
   );
